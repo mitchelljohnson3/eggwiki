@@ -1,8 +1,10 @@
 ![](screenshot.png)
 
-# An Otter Wiki
+# An Egg Wiki
 
-An Otter Wiki is Python-based software for collaborative content
+An Egg Wiki is a simple fork of An Otter Wiki.
+
+An Egg Wiki is Python-based software for collaborative content
 management, called a [wiki](https://en.wikipedia.org/wiki/Wiki). The
 content is stored in a git repository, which keeps track of all changes.
 [Markdown](https://daringfireball.net/projects/markdown) is used as
@@ -19,45 +21,61 @@ and [CodeMirror](https://codemirror.net/) as editor.
 - Full changelog and page history
 - User authentication
 - Page Attachments
-- A very cute Otter as logo (drawn by [Christy Presler](http://christypresler.com/) CC BY 3.0).
+- A very cute Egg as logo (drawn by [Alex Blaskovich](https://ablask3.wixsite.com/my-site) CC BY 3.0).
 
-## Demo
+## Local Installation w/ uwsgi
+1. clone repository
+- git clone https://github.com/redimp/otterwiki.git
 
-Check out the demo <https://demo.otterwiki.com>.
+2. cd into repository
+- cd otterwiki
 
-## Installation
+3. create settings file
+- echo "REPOSITORY='${PWD}/app-data/repository'" >> settings.cfg
+- echo "SQLALCHEMY_DATABASE_URI='sqlite:///${PWD}/app-data/db.sqlite'" >> settings.cfg
+- echo "SECRET_KEY='$(echo $RANDOM | md5sum | head -c 16)'" >> settings.cfg
+
+4. create virtual environment
+- python3 -m venv venv
+
+5. install otterwiki
+- ./venv/bin/pip install -U pip uwsgi
+- ./venv/bin/pip install .
+
+6. export settings file
+- export OTTERWIKI_SETTINGS=$PWD/settings.cfg
+
+7. run otterwiki
+- ./venv/bin/uwsgi --http 127.0.0.1:8080 --master --enable-threads --die-on-term -w otterwiki.server:app
+
+8. create a systemd service file
+```
+[Unit]
+Description=uWSGI server for An Egg Wiki
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/path/to/an/eggwiki
+ExecStart=/path/to/an/eggwiki/env/bin/uwsgi --http 127.0.0.1:8080 --enable-threads --die-on-term -w otterwiki.server:app
+SyslogIdentifier=otterwiki
+Environment="OTTERWIKI_SETTINGS=/path/to/an/eggwiki/settings.cfg"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+## Installation / Configuration Guides
 
 Read the [installation guide](https://otterwiki.com/Installation) to get
 started. Recommended is the installation with `docker-compose`.
 
-### Quick start with docker-compose
-
-1. Copy and edit the `docker-compose.yml` below to match your preferences.
-2. Run `docker-compose up -d`
-3. Access the wiki via http://127.0.0.1:8080 if run on your machine.
-4. If the wiki shall be accessible via the internet and an domain name make sure to configure your web server accordingly. Check the [installation guide](https://otterwiki.com/Installation#reverse-proxy) for example configurations for nginx, apache and caddy.
-5. Register your account. The first account is an admin-account giving you access to the settings tab.
-6. Customize the settings to your liking.
-
 Proceed for the [configuration guide](https://otterwiki.com/Configuration) for
 detailed information.
 
-#### docker-compose.yml
-
-```yaml
-version: '3'
-services:
-  otterwiki:
-    image: redimp/otterwiki:2
-    restart: unless-stopped
-    ports:
-      - 8080:80
-    volumes:
-      - ./app-data:/app-data
-```
-
 ## License
 
-An Otter Wiki is open-source software licensed under the [MIT License](https://github.com/redimp/otterwiki/blob/main/LICENSE).
+An Egg Wiki is open-source software licensed under the [MIT License](https://github.com/redimp/otterwiki/blob/main/LICENSE).
 
 [modeline]: # ( vim: set fenc=utf-8 spell spl=en sts=4 et tw=72: )
