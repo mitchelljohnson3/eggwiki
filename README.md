@@ -30,25 +30,31 @@ and [CodeMirror](https://codemirror.net/) as editor.
 2. cd into repository
 - cd otterwiki
 
-3. create settings file
+3. create app data folder
+- mkdir -p app-data/repository
+
+4. initialize the empty repository
+- git init app-data/repository
+
+5. create settings file
 - echo "REPOSITORY='${PWD}/app-data/repository'" >> settings.cfg
 - echo "SQLALCHEMY_DATABASE_URI='sqlite:///${PWD}/app-data/db.sqlite'" >> settings.cfg
 - echo "SECRET_KEY='$(echo $RANDOM | md5sum | head -c 16)'" >> settings.cfg
 
-4. create virtual environment
+6. create virtual environment
 - python3 -m venv venv
 
-5. install otterwiki
+7. install otterwiki
 - ./venv/bin/pip install -U pip uwsgi
 - ./venv/bin/pip install .
 
-6. export settings file
+8. export settings file
 - export OTTERWIKI_SETTINGS=$PWD/settings.cfg
 
-7. run otterwiki
+9. run otterwiki
 - ./venv/bin/uwsgi --http 127.0.0.1:8080 --master --enable-threads --die-on-term -w otterwiki.server:app
 
-8. create a systemd service file
+10. create a systemd service file
 ```
 [Unit]
 Description=uWSGI server for An Egg Wiki

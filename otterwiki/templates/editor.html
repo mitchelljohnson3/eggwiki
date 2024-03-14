@@ -223,9 +223,11 @@
 <script src="{{ url_for("static", filename="js/cm-search.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for("static", filename="js/cm-searchcursor.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for("static", filename="js/cm-dialog.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ url_for("static", filename="js/vim.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
     var cm_editor = CodeMirror.fromTextArea(document.getElementById("content_editor"), {
         mode: 'markdown',
+        keyMap: "vim",
         lineNumbers: true,
         theme: "otterwiki",
         lineWrapping: true,
