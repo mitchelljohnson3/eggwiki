@@ -9,6 +9,9 @@
 <link href="{{ url_for("static", filename="css/codemirror.css") | debug_unixtime }}" rel="stylesheet" />
 <link href="{{ url_for("static", filename="css/codemirror-theme.css") | debug_unixtime }}" rel="stylesheet" />
 <link href="{{ url_for("static", filename="css/codemirror-dialog.css") | debug_unixtime }}" rel="stylesheet" />
+<!-- codemirror 5 css -->
+<link href="{{ url_for("static", filename="lib/codemirror.css") | debug_unixtime }}" rel="stylesheet" />
+
 {% endblock %}
 {% block navbar_editor %}
 <button onclick="otterwiki_editor.undo()" class="btn btn-editor btn-xs ml-10" title="Undo"><i class="fas fa-undo"></i></button>
@@ -214,6 +217,7 @@
 {% block js %}
 {{ super() }}
 {# load the codemirror stuff #}
+<!--
 <script src="{{ url_for("static", filename="js/codemirror.min.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for("static", filename="js/cm-continuelist.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for("static", filename="js/cm-panel.js") }}" type="text/javascript" charset="utf-8"></script>
@@ -223,9 +227,16 @@
 <script src="{{ url_for("static", filename="js/cm-search.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for("static", filename="js/cm-searchcursor.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 <script src="{{ url_for("static", filename="js/cm-dialog.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
+-->
+
+<!-- codemirror 5 javascript -->
+<script src="{{ url_for("static", filename="lib/codemirror.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ url_for("static", filename="keymap/vim.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
+
 <script type="text/javascript">
     var cm_editor = CodeMirror.fromTextArea(document.getElementById("content_editor"), {
         mode: 'markdown',
+        keyMap: 'vim',
         lineNumbers: true,
         theme: "otterwiki",
         lineWrapping: true,
