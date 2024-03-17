@@ -1,6 +1,6 @@
 #
 #
-# Makefile for developing and building An Otter Wiki
+# Makefile for developing and building An Egg Wiki
 #
 # Please read the Installation guide <https://eggwiki.com/Installation>
 # to get started.

@@ -1,7 +1,7 @@
 ---
 #
 # This docker-compose.yml is for building and running the development
-# version of An Otter Wiki.
+# version of An Egg Wiki.
 #
 # Please read the Installation guide <https://eggwiki.com/Installation>
 # to get started.
@@ -23,8 +23,8 @@ services:
       # Please note: These settings can be OVERWRITTEN in the admin interface
       #
       # configure Name and Logo of the Wiki
-      - SITE_NAME=Otter Wiki Dev
-      - SITE_DESCRIPTION=Otter Wiki Development
+      - SITE_NAME=Egg Wiki Dev
+      - SITE_DESCRIPTION=Egg Wiki Development
       # Permissions allow everything (for development)
       - READ_ACCESS=ANONYMOUS
       - WRITE_ACCESS=ANONYMOUS
