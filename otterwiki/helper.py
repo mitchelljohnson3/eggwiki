@@ -2,20 +2,20 @@
 # vim: set et ts=8 sts=4 sw=4 ai:
 
 """
-otterwiki.helper
+eggwiki.helper
 
-functions used multiple times in the otterwiki that are not as
+functions used multiple times in the eggwiki that are not as
 lightweight as utils.
 
 """
 
-from otterwiki.server import app, mail, storage, Preferences
-from otterwiki.gitstorage import StorageError
+from eggwiki.server import app, mail, storage, Preferences
+from eggwiki.gitstorage import StorageError
 from flask import flash, url_for
 from threading import Thread
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
-from otterwiki.util import split_path, join_path, clean_slashes, titleSs
+from eggwiki.util import split_path, join_path, clean_slashes, titleSs
 
 
 class SerializeError(ValueError):

@@ -10,7 +10,7 @@ facilisis sit amet. Suspendisse in tellus maximus, laoreet neque vitae,
 venenatis magna. Sed quam elit, ultrices a massa sed, porta auctor
 libero.  Maecenas mollis tempus porta. 
 
-[Cras fermentum](https://github.com/redimp/otterwiki) ullamcorper
+[Cras fermentum](https://github.com/redimp/eggwiki) ullamcorper
 tellus, et fermentum sapien dictum laoreet. Pellentesque varius cursus
 eros, sed eleifend augue sollicitudin vitae. Proin suscipit nisi at
 posuere rutrum.

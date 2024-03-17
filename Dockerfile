@@ -12,12 +12,12 @@ RUN \
 # prepare environment
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
-# upgrade pip and install requirements not in otterwiki
+# upgrade pip and install requirements not in eggwiki
 RUN pip install -U pip wheel
 # copy app
 COPY . /app
 WORKDIR /app
-# install the otterwiki and its requirements
+# install the eggwiki and its requirements
 RUN pip install .
 #
 # test stage
@@ -39,8 +39,8 @@ FROM nginx:1.25.3
 ARG GIT_TAG
 ENV GIT_TAG $GIT_TAG
 # environment variables (I'm not sure if anyone ever would modify this)
-ENV OTTERWIKI_SETTINGS=/app-data/settings.cfg
-ENV OTTERWIKI_REPOSITORY=/app-data/repository
+ENV eggwiki_SETTINGS=/app-data/settings.cfg
+ENV eggwiki_REPOSITORY=/app-data/repository
 # install supervisord and python
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y update && \
   apt-get upgrade -y && \
@@ -54,11 +54,11 @@ COPY --from=compile-stage /opt/venv /opt/venv
 # Make sure we use the virtualenv:
 ENV PATH="/opt/venv/bin:$PATH"
 # create directories
-RUN mkdir -p /app-data /app/otterwiki
+RUN mkdir -p /app-data /app/eggwiki
 VOLUME /app-data
 RUN chown -R www-data:www-data /app-data
 # copy static files for nginx
-COPY otterwiki/static /app/otterwiki/static
+COPY eggwiki/static /app/eggwiki/static
 # copy supervisord configs (nginx is configured in the entrypoint.sh)
 COPY docker/uwsgi.ini /app/uwsgi.ini
 COPY docker/supervisord.conf /etc/supervisor/conf.d/

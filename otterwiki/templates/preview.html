@@ -22,7 +22,7 @@ div.content-wrapper {
 <div class="modal" id="modal-commit" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <a href="#" class="close" onclick="otterwiki.toggleModal('modal-commit')" role="button" aria-label="Close">
+      <a href="#" class="close" onclick="eggwiki.toggleModal('modal-commit')" role="button" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </a>
       <h5 class="modal-title">Save {{pagename}}</h5>
@@ -48,7 +48,7 @@ div.content-wrapper {
 #}
 {% block navbar %}
 <a href="{{ url_for('view', path=pagepath) }}" class="btn btn-danger mr-5" role="button"><i class="fas fa-window-close"></i></a>
-<button class="btn btn-success mr-5" onclick="otterwiki.toggleModal('modal-commit')"><i class="fas fa-save"></i></button>
+<button class="btn btn-success mr-5" onclick="eggwiki.toggleModal('modal-commit')"><i class="fas fa-save"></i></button>
 <button type="submit" class="btn btn-primary" form="pagecontent"><i class="fas fa-pencil-alt"></i></button>
 {% endblock %}
 {#

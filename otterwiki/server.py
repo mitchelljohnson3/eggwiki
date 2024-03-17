@@ -6,10 +6,10 @@ from flask import Flask
 from flask_htmlmin import HTMLMIN
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-from otterwiki import fatal_error, __version__
-import otterwiki.gitstorage
-import otterwiki.util
-from otterwiki.plugins import plugin_manager
+from eggwiki import fatal_error, __version__
+import eggwiki.gitstorage
+import eggwiki.util
+from eggwiki.plugins import plugin_manager
 
 app = Flask(__name__)
 # default configuration settings
@@ -34,7 +34,7 @@ app.config.update(
     NOTIFY_USER_ON_APPROVAL=False,
     RETAIN_PAGE_NAME_CASE=False,
     SQLALCHEMY_DATABASE_URI="sqlite:///:memory:",
-    MAIL_DEFAULT_SENDER="otterwiki@YOUR.ORGANIZATION.TLD",
+    MAIL_DEFAULT_SENDER="eggwiki@YOUR.ORGANIZATION.TLD",
     MAIL_SERVER="",
     MAIL_PORT="",
     MAIL_USERNAME="",
@@ -48,7 +48,7 @@ app.config.update(
     COMMIT_MESSAGE="REQUIRED", # OPTIONAL
     GIT_WEB_SERVER=False,
 )
-app.config.from_envvar("OTTERWIKI_SETTINGS", silent=True)
+app.config.from_envvar("eggwiki_SETTINGS", silent=True)
 
 app.logger.setLevel(app.config["LOG_LEVEL"])
 
@@ -64,14 +64,14 @@ if app.config["REPOSITORY"] is None:
     fatal_error("Please configure a REPOSITORY path.")
 elif not os.path.exists(app.config["REPOSITORY"]):
     fatal_error(
-        "Repository path '{}' not found. Please configure otterwiki.".format(
+        "Repository path '{}' not found. Please configure eggwiki.".format(
             app.config["REPOSITORY"]
         )
     )
 else:
     try:
-        storage = otterwiki.gitstorage.GitStorage(app.config["REPOSITORY"])
-    except otterwiki.gitstorage.StorageError as e:
+        storage = eggwiki.gitstorage.GitStorage(app.config["REPOSITORY"])
+    except eggwiki.gitstorage.StorageError as e:
         fatal_error(e)
 
 
@@ -83,7 +83,7 @@ if (len(storage.list()[0]) < 1) and (len(storage.log()) < 1):  # pyright: ignore
         filename = "Home.md" if app.config["RETAIN_PAGE_NAME_CASE"] else "home.md"
         storage.store(  # pyright: ignore
             filename=filename, content=content,
-            author=("Otterwiki Robot", "noreply@otterwiki"),
+            author=("eggwiki Robot", "noreply@eggwiki"),
             message="Initial commit",
         )
         app.logger.info("server: Created initial /Home.")
@@ -162,9 +162,9 @@ def format_datetime(value, format="medium"):
 app.jinja_env.globals.update(os_getenv=os.getenv)
 
 # initialize git via http
-import otterwiki.remote
-githttpserver = otterwiki.remote.GitHttpServer(path=app.config["REPOSITORY"])
+import eggwiki.remote
+githttpserver = eggwiki.remote.GitHttpServer(path=app.config["REPOSITORY"])
 
-import otterwiki.views
+import eggwiki.views
 
 # vim: set et ts=8 sts=4 sw=4 ai:

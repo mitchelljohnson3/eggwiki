@@ -1,6 +1,6 @@
 /* vim: set et sts=4 ts=4 sw=4 ai: */
 
-var otterwiki_editor = {
+var eggwiki_editor = {
     /* simple functions */
     undo: function() {
         if (!cm_editor) { return; }
@@ -44,7 +44,7 @@ var otterwiki_editor = {
         if (cm_editor.getSelection().length == 0) {
             // if nothing is selected, select the word under the cursor
             anythingSelected = false;
-            const word = otterwiki_editor._findWordAt(cm_editor.getCursor());
+            const word = eggwiki_editor._findWordAt(cm_editor.getCursor());
             cm_editor.setSelection(word.anchor, word.head);
         }
         if (cm_editor.getSelection().trim().length == 0) {
@@ -102,7 +102,7 @@ var otterwiki_editor = {
         if (!(line_re instanceof Array)) {
             line_re = [line_re];
         }
-        linenumbers = otterwiki_editor._getSelectedLines();
+        linenumbers = eggwiki_editor._getSelectedLines();
         var count = 1;
         for (const ln of linenumbers) {
             const line = cm_editor.getLine(ln);
@@ -116,7 +116,7 @@ var otterwiki_editor = {
                         updated_line = line_prefix + line;
                     }
                 }
-                otterwiki_editor._setLine(ln, updated_line);
+                eggwiki_editor._setLine(ln, updated_line);
             }
             count += 1;
         }
@@ -168,48 +168,48 @@ var otterwiki_editor = {
     // TODO: refactor so that it works with quotes, too.
     header: function() {
         if (!cm_editor) { return; }
-        for (const i of otterwiki_editor._getSelectedLines())
+        for (const i of eggwiki_editor._getSelectedLines())
         {
             var line = cm_editor.doc.getLine(i);
             var lineHLevel = line.search(/[^#]/);
             // In case of a line composed of only "#"
             if (lineHLevel < 0) { lineHLevel = line.length; }
             if (lineHLevel == 0) {
-                otterwiki_editor._setLine(i, "# " + line);
+                eggwiki_editor._setLine(i, "# " + line);
             } else if (lineHLevel < 5) {
                 // add a level
-                otterwiki_editor._setLine(i, "#" + line);
+                eggwiki_editor._setLine(i, "#" + line);
             } else {
                 // Remove Heading
-                otterwiki_editor._setLine(i, line.replace(/^#+\s*/,''));
+                eggwiki_editor._setLine(i, line.replace(/^#+\s*/,''));
             }
         }
         cm_editor.focus();
     },
     bold: function() {
-        otterwiki_editor._toggleBlock(["**","__"], "bold");
+        eggwiki_editor._toggleBlock(["**","__"], "bold");
     },
     italic: function() {
-        otterwiki_editor._toggleBlock(["_","*"], "italic");
+        eggwiki_editor._toggleBlock(["_","*"], "italic");
     },
     strikethrough: function() {
-        otterwiki_editor._toggleBlock("~~", "strikethrough");
+        eggwiki_editor._toggleBlock("~~", "strikethrough");
     },
     code: function() {
-        otterwiki_editor._toggleBlock(["`","```"], "code");
+        eggwiki_editor._toggleBlock(["`","```"], "code");
     },
     ul: function() {
-        otterwiki_editor._toggleLines("- ",[/\s*[-+*]\s+/], "ul");
+        eggwiki_editor._toggleLines("- ",[/\s*[-+*]\s+/], "ul");
     },
     ol: function() {
-        otterwiki_editor._toggleLines("\\d",[/\s*\d+\.\s+/], "ol");
+        eggwiki_editor._toggleLines("\\d",[/\s*\d+\.\s+/], "ol");
     },
     cl: function() {
-        otterwiki_editor._toggleLines("- [ ] ",[/\s*[-+*] \[ \]\s+/], "ul");
+        eggwiki_editor._toggleLines("- [ ] ",[/\s*[-+*] \[ \]\s+/], "ul");
     },
     img: function(img = "![]()") {
         if (!cm_editor) { return; }
-        state = otterwiki_editor._getState();
+        state = eggwiki_editor._getState();
         // we don't mess with existing tokens of these kinds
         if (state.img || state.link) { return; }
 
@@ -222,7 +222,7 @@ var otterwiki_editor = {
     },
     link: function(text = "description", url = "https://") {
         if (!cm_editor) { return; }
-        state = otterwiki_editor._getState();
+        state = eggwiki_editor._getState();
         // we don't mess with existing tokens of these kinds
         if (state.img || state.link) { return; }
 
@@ -237,7 +237,7 @@ var otterwiki_editor = {
         var block_start = Number.MAX_SAFE_INTEGER;
         var block_end = Number.MIN_SAFE_INTEGER;
         var block_end_len = 0;
-        for (const i of otterwiki_editor._getSelectedLines()) {
+        for (const i of eggwiki_editor._getSelectedLines()) {
             const line = cm_editor.getLine(i);
             if (line.trim().length > 0) {
                 if (block_start > i) block_start = i;
@@ -292,7 +292,7 @@ var otterwiki_editor = {
     _findTable: function() {
         var orig_cursor = cm_editor.getCursor('start');
         var orig_cursor_end = cm_editor.getCursor('end');
-        const block = otterwiki_editor._findBlock(true);
+        const block = eggwiki_editor._findBlock(true);
         // no block found
         if (!block) return;
         const [block_start, block_end] = block;
@@ -312,8 +312,8 @@ var otterwiki_editor = {
         var align = match[2].replace(/\| *$/, '');
         var celltext = match[3].replace(/(?: *\| *)?\n$/, '');
         // calc column for relative_cursor
-        if (relative_cursor.line == 0) relative_cursor.col = otterwiki_editor._findCursorCell(header, relative_cursor.ch);
-        if (relative_cursor.line == 1) relative_cursor.col = otterwiki_editor._findCursorCell(align, relative_cursor.ch);
+        if (relative_cursor.line == 0) relative_cursor.col = eggwiki_editor._findCursorCell(header, relative_cursor.ch);
+        if (relative_cursor.line == 1) relative_cursor.col = eggwiki_editor._findCursorCell(align, relative_cursor.ch);
         // split header and align row
         header = header.split(/ *\| */);
         align = align.split(/ *\| */);
@@ -333,7 +333,7 @@ var otterwiki_editor = {
             line = celltext[i];
 
             // calc column for relative_cursor
-            if (relative_cursor.line - 2 == i) relative_cursor.col = otterwiki_editor._findCursorCell(line, relative_cursor.ch) - 1;
+            if (relative_cursor.line - 2 == i) relative_cursor.col = eggwiki_editor._findCursorCell(line, relative_cursor.ch) - 1;
 
             // mistune does:
             // line = line.replace(/^ *\| *| *\| *$/, '');
@@ -396,7 +396,7 @@ var otterwiki_editor = {
         var row = [];
         // generate header
         for (var j in t.header) {
-            row.push(" "+otterwiki_editor._alignStr(t.header[j], t.colum_width[j], t.align[j])+" ");
+            row.push(" "+eggwiki_editor._alignStr(t.header[j], t.colum_width[j], t.align[j])+" ");
         }
         arr.push(row);
         // generate alignment row
@@ -412,7 +412,7 @@ var otterwiki_editor = {
         for (var i in t.cells) {
             row = [];
             for (var j in t.cells[i]) {
-                row.push(" "+otterwiki_editor._alignStr(t.cells[i][j], t.colum_width[j], t.align[j])+" ");
+                row.push(" "+eggwiki_editor._alignStr(t.cells[i][j], t.colum_width[j], t.align[j])+" ");
             }
             arr.push(row);
         }
@@ -443,15 +443,15 @@ var otterwiki_editor = {
         // store cursor
         var orig_cursor = cm_editor.getCursor('start')
         // find table in current block
-        t = otterwiki_editor._findTable();
+        t = eggwiki_editor._findTable();
         if (!(t)) {
             // no table found: add an empty one
             const text = cm_editor.getSelection();
             const table = "\n\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |\n\n"
             cm_editor.replaceSelection(text + table);
         } else {
-            arr = otterwiki_editor._tableArray(t);
-            otterwiki_editor.table_arr_replace(arr);
+            arr = eggwiki_editor._tableArray(t);
+            eggwiki_editor.table_arr_replace(arr);
         }
         cm_editor.focus();
     },
@@ -459,15 +459,15 @@ var otterwiki_editor = {
     table_add_row: function() {
         if (!cm_editor) return;
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         // get table as array
-        var arr = otterwiki_editor._tableArray(t);
+        var arr = eggwiki_editor._tableArray(t);
         // craft row
         var empty_row = [];
         for (var j in t.colum_width)
         {
-            empty_row.push(otterwiki_editor._alignStr("", t.colum_width[j]+2, t.align[j]));
+            empty_row.push(eggwiki_editor._alignStr("", t.colum_width[j]+2, t.align[j]));
         }
         // insert row into arr
         var row = Math.max(2, t.row);
@@ -477,64 +477,64 @@ var otterwiki_editor = {
             arr.splice(row, 0, empty_row);
         }
         // update editor
-        otterwiki_editor.table_arr_replace(arr, Math.max(2, row));
+        eggwiki_editor.table_arr_replace(arr, Math.max(2, row));
         cm_editor.focus();
     },
     table_remove_row: function() {
         if (!cm_editor) return;
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         if (t.row < 2) return;
         // get table as array
-        var arr = otterwiki_editor._tableArray(t);
+        var arr = eggwiki_editor._tableArray(t);
         // row limits
         var row = Math.min(arr.length-1,Math.max(2, t.row));
         arr.splice(row, 1);
         // update editor
-        otterwiki_editor.table_arr_replace(arr, row, t.col);
+        eggwiki_editor.table_arr_replace(arr, row, t.col);
         cm_editor.focus();
     },
     table_move_row_up: function() {
         if (!cm_editor) return;
         var c = cm_editor.getCursor('start')
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         if (t.row < 3) {
             // either already on top in the header
             cm_editor.setCursor(c);
         } else {
             // get table as array
-            var arr = otterwiki_editor._tableArray(t);
+            var arr = eggwiki_editor._tableArray(t);
             arr[t.row]=arr.splice(t.row-1, 1, arr[t.row])[0];
             // update editor
-            otterwiki_editor.table_arr_replace(arr, t.row - 1, t.col);
+            eggwiki_editor.table_arr_replace(arr, t.row - 1, t.col);
         }
         cm_editor.focus();
     },
     table_move_row_down: function() {
         if (!cm_editor) return;
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         // already on bottom of the table
         if (t.row >= t.cells.length + 1) return; // +2 -1
         // get table as array
-        var arr = otterwiki_editor._tableArray(t);
+        var arr = eggwiki_editor._tableArray(t);
         arr[t.row]=arr.splice(t.row+1, 1, arr[t.row])[0];
         // update editor
-        otterwiki_editor.table_arr_replace(arr, t.row+1, t.col);
+        eggwiki_editor.table_arr_replace(arr, t.row+1, t.col);
         cm_editor.focus();
     },
     // column manipulation
     table_add_column: function() {
         if (!cm_editor) return;
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         // get table as array
-        var arr = otterwiki_editor._tableArray(t);
+        var arr = eggwiki_editor._tableArray(t);
         // craft row
         for (var i in arr)
         {
@@ -543,33 +543,33 @@ var otterwiki_editor = {
             arr[i].splice(t.col, 0, cell);
         }
         // update editor
-        otterwiki_editor.table_arr_replace(arr, t.row, t.col);
+        eggwiki_editor.table_arr_replace(arr, t.row, t.col);
         cm_editor.focus();
     },
     table_remove_column: function() {
         if (!cm_editor) return;
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         // get table as array
-        var arr = otterwiki_editor._tableArray(t);
+        var arr = eggwiki_editor._tableArray(t);
         // craft row
         for (var i in arr)
         {
             arr[i].splice(t.col, 1);
         }
         // update editor
-        otterwiki_editor.table_arr_replace(arr, t.row, Math.min(arr[0].length-1,t.col));
+        eggwiki_editor.table_arr_replace(arr, t.row, Math.min(arr[0].length-1,t.col));
         cm_editor.focus();
     },
     table_move_column: function(offset = 1) {
         if (!cm_editor) return;
         var c = cm_editor.getCursor('start')
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         // get table as array
-        var arr = otterwiki_editor._tableArray(t);
+        var arr = eggwiki_editor._tableArray(t);
         offset = parseInt(offset);
         if (t.col+offset >= arr[0].length || t.col+offset < 0) {
             // restore cursor
@@ -579,7 +579,7 @@ var otterwiki_editor = {
                 arr[i][t.col]=arr[i].splice(t.col+offset, 1, arr[i][t.col])[0];
             }
             // update editor
-            otterwiki_editor.table_arr_replace(arr, t.row, t.col+offset);
+            eggwiki_editor.table_arr_replace(arr, t.row, t.col+offset);
         }
         cm_editor.focus();
     },
@@ -587,7 +587,7 @@ var otterwiki_editor = {
     table_align_col: function(align = 'undef') {
         if (!cm_editor) return;
         // find table
-        var t = otterwiki_editor._findTable();
+        var t = eggwiki_editor._findTable();
         if (!t) return;
         // update alignment
         if (t.align[t.col] != align)
@@ -595,13 +595,13 @@ var otterwiki_editor = {
         else
             t.align[t.col] = 'undef';
         // get table as array with the updated alignment
-        var arr = otterwiki_editor._tableArray(t);
-        otterwiki_editor.table_arr_replace(arr, t.row, t.col);
+        var arr = eggwiki_editor._tableArray(t);
+        eggwiki_editor.table_arr_replace(arr, t.row, t.col);
         cm_editor.focus();
     },
 }
 
-var otterwiki = {
+var eggwiki = {
     // Toggle display block/none
     toggleClass: function(show, classname) {
         const boxes = document.getElementsByClassName(classname);

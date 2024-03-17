@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from otterwiki.util import is_valid_email
+from eggwiki.util import is_valid_email
 from flask import (
     redirect,
     abort,
@@ -10,11 +10,11 @@ from flask import (
 from flask_login import (
     current_user,
 )
-from otterwiki.server import app, db, update_app_config, Preferences
-from otterwiki.helper import toast, send_mail
-from otterwiki.util import empty, is_valid_email
+from eggwiki.server import app, db, update_app_config, Preferences
+from eggwiki.helper import toast, send_mail
+from eggwiki.util import empty, is_valid_email
 from flask_login import current_user
-from otterwiki.auth import has_permission, get_all_user, get_user, update_user, delete_user
+from eggwiki.auth import has_permission, get_all_user, get_user, update_user, delete_user
 
 def _update_preference(name, value, commit=False):
     entry = Preferences.query.filter_by(name=name).first()
@@ -100,8 +100,8 @@ def handle_test_mail_preferences(form):
         recipient = current_user.email
     # check if mail is valid
     if is_valid_email(recipient):
-        body = """OtterWiki Test Mail"""
-        subject = "OtterWiki Test Mail"
+        body = """eggwiki Test Mail"""
+        subject = "eggwiki Test Mail"
         try:
             send_mail(subject, [recipient], body, _async=False, raise_on_error=True)
         except Exception as e:

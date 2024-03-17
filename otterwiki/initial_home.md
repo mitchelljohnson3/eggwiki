@@ -25,4 +25,4 @@ The first steps you might want to do:
 We hope that An Otter Wiki is just what you are looking for.
 If you have any suggestions, feature requests or run into any
 issues, please reach out and report them
-via [github](https://github.com/redimp/otterwiki/issues).
+via [github](https://github.com/redimp/eggwiki/issues).

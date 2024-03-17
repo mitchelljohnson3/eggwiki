@@ -3,7 +3,7 @@ DEBUG             = False
 # The SECRET_KEY is used for signing the session cookie.
 SECRET_KEY        = 'CHANGE ME'
 # The SITE_NAME is displayed on every page and email.
-SITE_NAME         = 'Otterwiki'
+SITE_NAME         = 'eggwiki'
 # Configure the path to the repository:
 REPOSITORY        = '/path/to/the/repository/root'
 
@@ -29,7 +29,7 @@ SQLALCHEMY_DATABASE_URI = ''
 # # Flask-Mail configuration
 # # See https://pythonhosted.org/Flask-Mail/ for configuration.
 
-# MAIL_DEFAULT_SENDER='no-reply@otterwiki.YOUR-ORGANISATION.TLD'
+# MAIL_DEFAULT_SENDER='no-reply@eggwiki.YOUR-ORGANISATION.TLD'
 
 # # Flask-Mail gmail
 # MAIL_SERVER = 'smtp.googlemail.com'

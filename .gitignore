@@ -6,7 +6,7 @@ build/
 dist/
 settings.cfg
 *.log*
-otterwiki/__pycache__
+eggwiki/__pycache__
 repository
 *.sqlite
 .coverage

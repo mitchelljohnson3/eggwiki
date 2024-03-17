@@ -4,7 +4,7 @@
 
 import pytest
 from pprint import pprint
-from otterwiki.renderer import render
+from eggwiki.renderer import render
 
 markdown_example = """# Header
 
@@ -55,7 +55,7 @@ a^2+b^2=c^2
 """
 
 def test_preview(create_app, req_ctx):
-    from otterwiki.wiki import Page
+    from eggwiki.wiki import Page
     p = Page("test")
     preview_html = p.preview(content=markdown_example, cursor_line=1,cursor_ch=1)
     assert render.htmlcursor in preview_html
@@ -64,7 +64,7 @@ def test_preview_all(create_app, req_ctx):
     markdown_arr = markdown_example.splitlines()
     html_example, _ = render.markdown(markdown_example)
     html_example_arr = html_example.split("<")
-    from otterwiki.wiki import Page
+    from eggwiki.wiki import Page
     p = Page("test")
     preview_html = p.preview(content=markdown_example, cursor_line=1,cursor_ch=1)
     for part in html_example_arr:
@@ -83,7 +83,7 @@ def test_preview_all(create_app, req_ctx):
             assert part in preview_html
 
 def test_preview_list_bug(create_app, req_ctx):
-    from otterwiki.wiki import Page
+    from eggwiki.wiki import Page
     p = Page("test")
     content = """Zeile
 1. eins

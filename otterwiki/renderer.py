@@ -17,8 +17,8 @@ from pygments.formatters import html
 from pygments.util import ClassNotFound
 
 from markupsafe import Markup, escape
-from otterwiki.util import slugify, empty
-from otterwiki.renderer_plugins import (
+from eggwiki.util import slugify, empty
+from eggwiki.renderer_plugins import (
         plugin_task_lists,
         plugin_footnotes,
         plugin_mark,
@@ -27,7 +27,7 @@ from otterwiki.renderer_plugins import (
         plugin_fold,
         plugin_math,
         )
-from otterwiki.plugins import chain_hooks
+from eggwiki.plugins import chain_hooks
 from bs4 import BeautifulSoup
 
 # the cursor magic word which is ignored by the rendering
@@ -94,7 +94,7 @@ def clean_html(html):
     return html
 
 
-class OtterwikiMdRenderer(mistune.HTMLRenderer):
+class eggwikiMdRenderer(mistune.HTMLRenderer):
     toc_count = 0
     toc_tree = []
     toc_anchors = {}
@@ -168,10 +168,10 @@ class OtterwikiMdRenderer(mistune.HTMLRenderer):
         return rv
 
 
-class OtterwikiRenderer:
+class eggwikiRenderer:
     def __init__(self):
-        self.md_renderer = OtterwikiMdRenderer()
-        # self.md_lexer = OtterwikiInlineLexer(self.md_renderer)
+        self.md_renderer = eggwikiMdRenderer()
+        # self.md_lexer = eggwikiInlineLexer(self.md_renderer)
         self.mistune = mistune.create_markdown(
             renderer=self.md_renderer,
             plugins=[
@@ -241,4 +241,4 @@ class OtterwikiRenderer:
         return pygments_render(code, lang)
 
 
-render = OtterwikiRenderer()
+render = eggwikiRenderer()

@@ -8,7 +8,7 @@ plugin_manager find it, the class has to be registered.
 """
 
 import re
-from otterwiki.plugins import hookimpl, plugin_manager
+from eggwiki.plugins import hookimpl, plugin_manager
 
 
 class NoEmojiPlugin:

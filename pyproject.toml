@@ -1,5 +1,5 @@
 [project]
-name = "otterwiki"
+name = "eggwiki"
 description = "An Otter Wiki is Python-based software for collaborative content management, called a wiki. The content is stored in a git repository, which keeps track of all changes. Markdown is used as markup language."
 authors = [
     { name = "Ralph Thesen", email = "mail@redimp.de" }
@@ -40,10 +40,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://otterwiki.com"
-Github = "https://github.com/redimp/otterwiki"
-Issues = "https://github.com/redimp/otterwiki/issues/"
-"Demo" = "https://demo.otterwiki.com"
+Homepage = "https://eggwiki.com"
+Github = "https://github.com/redimp/eggwiki"
+Issues = "https://github.com/redimp/eggwiki/issues/"
+"Demo" = "https://demo.eggwiki.com"
 
 [project.optional-dependencies]
 dev = [
@@ -63,10 +63,10 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["otterwiki"]
+packages = ["eggwiki"]
 
 [tool.setuptools.dynamic]
-version = {attr = "otterwiki.version.__version__"}
+version = {attr = "eggwiki.version.__version__"}
 
 [tool.black]
 # The default line length in black is 88 characters, in defiance of

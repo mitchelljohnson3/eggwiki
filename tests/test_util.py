@@ -3,7 +3,7 @@
 
 import os
 import pytest
-from otterwiki.util import (
+from eggwiki.util import (
     sizeof_fmt,
     slugify,
     split_path,

@@ -393,7 +393,7 @@ class mistunePluginSpoiler:
             text = text[3:]
         if text.endswith('</p>'):
             text = text[:-4]
-        return f'<div class="spoiler">\n  <button class="spoiler-button" onclick="otterwiki.toggle_spoiler(this)"><i class="far fa-eye"></i></button>\n  <p>{text}</p>\n</div>\n\n'
+        return f'<div class="spoiler">\n  <button class="spoiler-button" onclick="eggwiki.toggle_spoiler(this)"><i class="far fa-eye"></i></button>\n  <p>{text}</p>\n</div>\n\n'
 
     def __call__(self, md):
         md.block.register_rule(

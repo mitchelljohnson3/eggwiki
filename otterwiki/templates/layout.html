@@ -32,9 +32,9 @@
     <title>{%if title%}{{title}} &ndash; {%endif%}{%if config.SITE_NAME %}{{config.SITE_NAME}}{%else%}An Otter Wiki{%endif%}</title>
 {% endblock %}
     <link href="{{ url_for("static", filename="css/halfmoon.min.css") | debug_unixtime }}" rel="stylesheet" media="screen" />
-    <!-- Otterwiki CSS -->
-    <link href="{{ url_for("static", filename="css/otterwiki.css") | debug_unixtime }}" rel="stylesheet" media="screen" />
-    <!-- Otterwiki Print -->
+    <!-- eggwiki CSS -->
+    <link href="{{ url_for("static", filename="css/eggwiki.css") | debug_unixtime }}" rel="stylesheet" media="screen" />
+    <!-- eggwiki Print -->
     <link href="{{ url_for("static", filename="css/print.css") | debug_unixtime }}" rel="stylesheet" media="print" />
     <!-- Font awesome -->
     <link rel="stylesheet" href="{{ url_for("static", filename="css/fontawesome-all.min.css") | debug_unixtime }}">

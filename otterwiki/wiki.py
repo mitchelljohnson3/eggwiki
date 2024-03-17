@@ -13,11 +13,11 @@ from flask import (
     jsonify,
 )
 from markupsafe import escape as html_escape
-from otterwiki.gitstorage import StorageNotFound, StorageError
-from otterwiki.server import app, storage
-from otterwiki.renderer import render, pygments_render
-from otterwiki.sidebar import SidebarNavigation
-from otterwiki.util import (
+from eggwiki.gitstorage import StorageNotFound, StorageError
+from eggwiki.server import app, storage
+from eggwiki.renderer import render, pygments_render
+from eggwiki.sidebar import SidebarNavigation
+from eggwiki.util import (
     split_path,
     join_path,
     empty,
@@ -29,15 +29,15 @@ from otterwiki.util import (
     patchset2hunkdict,
     get_header,
 )
-from otterwiki.helper import (
+from eggwiki.helper import (
     toast,
     auto_url,
     get_filename,
     get_attachment_directoryname,
     get_pagename,
 )
-from otterwiki.auth import has_permission, current_user
-from otterwiki.plugins import chain_hooks
+from eggwiki.auth import has_permission, current_user
+from eggwiki.plugins import chain_hooks
 from datetime import timedelta, datetime
 from timeit import default_timer as timer
 from werkzeug.http import http_date

@@ -2,8 +2,8 @@ import subprocess
 import os
 
 from flask import request, abort, make_response, Response
-from otterwiki.server import app
-from otterwiki.auth import current_user, has_permission, check_credentials
+from eggwiki.server import app
+from eggwiki.auth import current_user, has_permission, check_credentials
 
 
 class GitHttpServer:
@@ -37,7 +37,7 @@ class GitHttpServer:
                 abort(
                     401,
                     response=Response(
-                        'Please authenticate with your OtterWiki email address and password.',
+                        'Please authenticate with your eggwiki email address and password.',
                         401,
                         {'WWW-Authenticate': 'Basic realm="Login Required"'},
                     ),

@@ -4,55 +4,55 @@
 set -e
 
 # take care of repository dictionary
-if [ ! -d ${OTTERWIKI_REPOSITORY} ]; then
-    mkdir -p ${OTTERWIKI_REPOSITORY}
+if [ ! -d ${eggwiki_REPOSITORY} ]; then
+    mkdir -p ${eggwiki_REPOSITORY}
 fi
 
-if [ ! -d ${OTTERWIKI_REPOSITORY}/.git ]; then
-    git init ${OTTERWIKI_REPOSITORY}
+if [ ! -d ${eggwiki_REPOSITORY}/.git ]; then
+    git init ${eggwiki_REPOSITORY}
 fi
 
-# take care of the otterwiki settings file
-if [ ! -f ${OTTERWIKI_SETTINGS} ]; then
+# take care of the eggwiki settings file
+if [ ! -f ${eggwiki_SETTINGS} ]; then
     RANDOM_SECRET_KEY=$(echo $RANDOM | md5sum | head -c 16)
-    echo "DEBUG = False" >> ${OTTERWIKI_SETTINGS}
-    echo "REPOSITORY = '/app-data/repository'" >> ${OTTERWIKI_SETTINGS}
-    echo "SECRET_KEY = '${RANDOM_SECRET_KEY}'" >> ${OTTERWIKI_SETTINGS}
-    echo "SQLALCHEMY_DATABASE_URI = 'sqlite:////app-data/db.sqlite'" >> ${OTTERWIKI_SETTINGS}
+    echo "DEBUG = False" >> ${eggwiki_SETTINGS}
+    echo "REPOSITORY = '/app-data/repository'" >> ${eggwiki_SETTINGS}
+    echo "SECRET_KEY = '${RANDOM_SECRET_KEY}'" >> ${eggwiki_SETTINGS}
+    echo "SQLALCHEMY_DATABASE_URI = 'sqlite:////app-data/db.sqlite'" >> ${eggwiki_SETTINGS}
 fi
 
 # handle environment variables
 # branding
 for EV in SITE_NAME SITE_LOGO SITE_DESCRIPTION SITE_ICON; do
     if [ ! -z "${!EV}" ]; then
-        sed -i "/^${EV}.*/d" ${OTTERWIKI_SETTINGS}
-        echo "${EV} = '${!EV}'" >> ${OTTERWIKI_SETTINGS}
+        sed -i "/^${EV}.*/d" ${eggwiki_SETTINGS}
+        echo "${EV} = '${!EV}'" >> ${eggwiki_SETTINGS}
     fi
 done
 # permissions
 for EV in READ_ACCESS WRITE_ACCESS ATTACHMENT_ACCESS; do
     if [ ! -z "${!EV}" ]; then
-        sed -i "/^${EV}.*/d" ${OTTERWIKI_SETTINGS}
-        echo "${EV} = '${!EV}'" >> ${OTTERWIKI_SETTINGS}
+        sed -i "/^${EV}.*/d" ${eggwiki_SETTINGS}
+        echo "${EV} = '${!EV}'" >> ${eggwiki_SETTINGS}
     fi
 done
 for EV in LOG_LEVEL AUTO_APPROVAL EMAIL_NEEDS_CONFIRMATION RETAIN_PAGE_NAME_CASE GIT_WEB_SERVER DISABLE_REGISTRATION; do
     if [ ! -z "${!EV}" ]; then
-        sed -i "/^${EV}.*/d" ${OTTERWIKI_SETTINGS}
-        echo "${EV} = ${!EV}" >> ${OTTERWIKI_SETTINGS}
+        sed -i "/^${EV}.*/d" ${eggwiki_SETTINGS}
+        echo "${EV} = ${!EV}" >> ${eggwiki_SETTINGS}
     fi
 done
 # mail
 for EV in MAIL_SERVER MAIL_USERNAME MAIL_PASSWORD MAIL_DEFAULT_SENDER; do
     if [ ! -z "${!EV}" ]; then
-        sed -i "/^${EV}.*/d" ${OTTERWIKI_SETTINGS}
-        echo "${EV} = '${!EV}'" >> ${OTTERWIKI_SETTINGS}
+        sed -i "/^${EV}.*/d" ${eggwiki_SETTINGS}
+        echo "${EV} = '${!EV}'" >> ${eggwiki_SETTINGS}
     fi
 done
 for EV in MAIL_PORT MAIL_USE_TLS MAIL_USE_SSL; do
     if [ ! -z "${!EV}" ]; then
-        sed -i "/^${EV}.*/d" ${OTTERWIKI_SETTINGS}
-        echo "${EV} = ${!EV}" >> ${OTTERWIKI_SETTINGS}
+        sed -i "/^${EV}.*/d" ${eggwiki_SETTINGS}
+        echo "${EV} = ${!EV}" >> ${eggwiki_SETTINGS}
     fi
 done
 
@@ -68,7 +68,7 @@ sed -i "/worker_processes\s/c\worker_processes ${USE_NGINX_WORKER_PROCESSES};" /
 # Get the URL for static files from the environment variable
 USE_STATIC_URL=${STATIC_URL:-'/static'}
 # Get the absolute path of the static files from the environment variable
-USE_STATIC_PATH=${STATIC_PATH:-'/app/otterwiki/static'}
+USE_STATIC_PATH=${STATIC_PATH:-'/app/eggwiki/static'}
 # Get the listen port for Nginx, default to 80
 USE_LISTEN_PORT=${LISTEN_PORT:-80}
 

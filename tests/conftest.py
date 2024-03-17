@@ -4,14 +4,14 @@
 import pytest
 import os
 import re
-import otterwiki.gitstorage
+import eggwiki.gitstorage
 from datetime import datetime
 
 
 @pytest.fixture
 def create_app(tmpdir):
     tmpdir.mkdir("repo")
-    _storage = otterwiki.gitstorage.GitStorage(
+    _storage = eggwiki.gitstorage.GitStorage(
         path=str(tmpdir.join("repo")), initialize=True
     )
     settings_cfg = str(tmpdir.join("settings.cfg"))
@@ -27,11 +27,11 @@ def create_app(tmpdir):
             ]
         )
     # configure environment
-    os.environ["OTTERWIKI_SETTINGS"] = settings_cfg
+    os.environ["eggwiki_SETTINGS"] = settings_cfg
     # get app
-    from otterwiki.server import app, db, mail, storage
+    from eggwiki.server import app, db, mail, storage
     # for debugging
-    app._otterwiki_tempdir = storage.path
+    app._eggwiki_tempdir = storage.path
     # for other tests
     app.storage = storage
     # store mail in app for testing
@@ -54,7 +54,7 @@ def req_ctx(create_app):
 
 @pytest.fixture
 def app_with_user(create_app, req_ctx):
-    from otterwiki.auth import SimpleAuth, generate_password_hash, db
+    from eggwiki.auth import SimpleAuth, generate_password_hash, db
 
     # delete all users
     db.session.query(SimpleAuth.User).delete()

@@ -1,7 +1,7 @@
 /*
 * -----------------------------------------------------------------------------
 * Halfmoon JS
-* Version: 1.1.1-redimp/otterwiki
+* Version: 1.1.1-redimp/eggwiki
 * https://www.gethalfmoon.com
 * Copyright, Halfmoon UI
 * Licensed under MIT (https://www.gethalfmoon.com/license)

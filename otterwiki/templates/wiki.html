@@ -2,7 +2,7 @@
 {% extends "layout.html" %}
 {% block js %}
 {{ super() }}
-<script src="{{ url_for("static", filename="js/otterwiki.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{ url_for("static", filename="js/eggwiki.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 {% endblock js %}
 {% block menu %}
                 <a href="{{ url_for("index") }}" class="sidebar-link sidebar-link-with-icon">

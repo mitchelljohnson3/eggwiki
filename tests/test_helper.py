@@ -3,8 +3,8 @@
 
 import pytest
 import flask
-import otterwiki
-import otterwiki.gitstorage
+import eggwiki
+import eggwiki.gitstorage
 
 @pytest.fixture
 def test_client(create_app):
@@ -19,7 +19,7 @@ def req_ctx(create_app):
 
 def test_toast(create_app, req_ctx, test_client):
     test_string = "aa bb cc dd"
-    from otterwiki.helper import toast
+    from eggwiki.helper import toast
 
     assert not flask.session.modified
     # test toast
@@ -30,7 +30,7 @@ def test_toast(create_app, req_ctx, test_client):
 
 def test_toast_session(create_app, req_ctx, test_client):
     test_string = "aa bb cc dd"
-    from otterwiki.helper import toast
+    from eggwiki.helper import toast
     from flask import session
 
     html = test_client.get("/").data.decode()
@@ -45,7 +45,7 @@ def test_toast_session(create_app, req_ctx, test_client):
 
 def test_serializer(create_app, req_ctx):
     s = "Hello World"
-    from otterwiki.helper import serialize, deserialize, SerializeError
+    from eggwiki.helper import serialize, deserialize, SerializeError
 
     assert s == deserialize(serialize(s))
     # check max_age
@@ -56,15 +56,15 @@ def test_serializer(create_app, req_ctx):
         deserialize(serialize(s), salt=s)
 
 def test_health_check_ok(create_app, req_ctx):
-    from otterwiki.helper import health_check
+    from eggwiki.helper import health_check
 
     healthy, messages = health_check()
     assert healthy is True
     assert messages == ["ok"]
 
 def test_health_check_error_storage(create_app, req_ctx, tmpdir):
-    from otterwiki.helper import health_check
-    from otterwiki.gitstorage import GitStorage
+    from eggwiki.helper import health_check
+    from eggwiki.gitstorage import GitStorage
     # update the Storage object with a storage on a not initialized directory
     _working_dir = create_app.storage.repo.git._working_dir
     create_app.storage.repo.git._working_dir = str(tmpdir.mkdir("test_health_check_error_storage"))
@@ -76,8 +76,8 @@ def test_health_check_error_storage(create_app, req_ctx, tmpdir):
     create_app.storage.repo.git._working_dir = _working_dir
 
 def test_health_check_error_storage(create_app, req_ctx, tmpdir):
-    from otterwiki.helper import health_check
-    from otterwiki.gitstorage import GitStorage
+    from eggwiki.helper import health_check
+    from eggwiki.gitstorage import GitStorage
     # update the Storage object with a storage on a not initialized directory
     _working_dir = create_app.storage.repo.git._working_dir
     create_app.storage.repo.git._working_dir = str(tmpdir.mkdir("test_health_check_error_storage"))
@@ -89,7 +89,7 @@ def test_health_check_error_storage(create_app, req_ctx, tmpdir):
     create_app.storage.repo.git._working_dir = _working_dir
 
 def test_auto_url(create_app, req_ctx):
-    from otterwiki.helper import auto_url
+    from eggwiki.helper import auto_url
 
     name, path = auto_url("home.md")
     assert name == "Home"
@@ -111,7 +111,7 @@ def create_app_raw_filenames(create_app):
 
 
 def test_auto_url_raw(create_app_raw_filenames, req_ctx):
-    from otterwiki.helper import auto_url
+    from eggwiki.helper import auto_url
 
     name, path = auto_url("home.md")
     assert name == "home"
@@ -129,7 +129,7 @@ def test_auto_url_raw(create_app_raw_filenames, req_ctx):
 
 
 def test_get_filename(create_app, req_ctx):
-    from otterwiki.helper import get_filename
+    from eggwiki.helper import get_filename
 
     assert get_filename("Home") == "home.md"
     assert get_filename("hOme") == "home.md"
@@ -137,7 +137,7 @@ def test_get_filename(create_app, req_ctx):
     assert get_filename("HOME.MD") == "home.md"
 
 def test_get_filename_raw(create_app_raw_filenames, req_ctx):
-    from otterwiki.helper import get_filename
+    from eggwiki.helper import get_filename
 
     assert get_filename("Home") == "Home.md"
     assert get_filename("hOme") == "hOme.md"
@@ -146,7 +146,7 @@ def test_get_filename_raw(create_app_raw_filenames, req_ctx):
 
 
 def test_get_attachment_directoryname(create_app, req_ctx):
-    from otterwiki.helper import get_attachment_directoryname
+    from eggwiki.helper import get_attachment_directoryname
 
     assert get_attachment_directoryname("Home.md") == "home"
     with pytest.raises(ValueError):
@@ -155,7 +155,7 @@ def test_get_attachment_directoryname(create_app, req_ctx):
 
 def test_get_attachment_directoryname_raw(create_app_raw_filenames, req_ctx):
 
-    from otterwiki.helper import get_attachment_directoryname
+    from eggwiki.helper import get_attachment_directoryname
 
     assert get_attachment_directoryname("Home.md") == "Home"
     with pytest.raises(ValueError):
@@ -164,7 +164,7 @@ def test_get_attachment_directoryname_raw(create_app_raw_filenames, req_ctx):
 
 
 def test_get_pagename(create_app, req_ctx):
-    from otterwiki.helper import get_pagename
+    from eggwiki.helper import get_pagename
 
     assert "Example" == get_pagename("subspace/example.md")
     assert "Example" == get_pagename("subspace/example")
@@ -189,7 +189,7 @@ def test_get_pagename(create_app, req_ctx):
 
 
 def test_get_pagename_raw(create_app_raw_filenames, req_ctx):
-    from otterwiki.helper import get_pagename
+    from eggwiki.helper import get_pagename
 
     # testing raw page name functionality
     assert "example" == get_pagename("subspace/example.md")

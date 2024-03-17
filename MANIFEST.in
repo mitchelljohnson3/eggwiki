@@ -1,4 +1,4 @@
 # include templates and static files in the package
-recursive-include otterwiki/templates *
-recursive-include otterwiki/static *
-include otterwiki/*.md
+recursive-include eggwiki/templates *
+recursive-include eggwiki/static *
+include eggwiki/*.md

@@ -1,6 +1,6 @@
 [run]
 omit =
-    otterwiki/profiler.py
+    eggwiki/profiler.py
 
 [html]
 directory = coverage_html

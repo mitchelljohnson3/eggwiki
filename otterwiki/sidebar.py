@@ -4,12 +4,12 @@ import os
 import re
 from collections import OrderedDict
 
-from otterwiki.server import storage, app
-from otterwiki.util import (
+from eggwiki.server import storage, app
+from eggwiki.util import (
     split_path,
     join_path,
 )
-from otterwiki.helper import (
+from eggwiki.helper import (
     get_pagename,
 )
 

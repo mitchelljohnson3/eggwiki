@@ -4,7 +4,7 @@
 import pytest
 import os
 import re
-import otterwiki
+import eggwiki
 from pprint import pprint
 
 def test_settings_update_name(app_with_user, test_client):

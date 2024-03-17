@@ -7,7 +7,7 @@ import re
 from io import BytesIO
 from flask import url_for
 import pytest
-import otterwiki
+import eggwiki
 
 from pprint import pprint
 
@@ -142,7 +142,7 @@ def test_pageindex(test_client):
 
 
 def test_page_save(test_client):
-    from otterwiki.server import storage
+    from eggwiki.server import storage
 
     pagename = "Save Test"
     content = "*em*\n\n**strong**\n"
@@ -401,7 +401,7 @@ def test_delete(test_client):
 
 
 def test_non_version_control_file(test_client):
-    p = test_client.application._otterwiki_tempdir
+    p = test_client.application._eggwiki_tempdir
 
     filename = "no version file"
     content = 'oh no! no control!'
@@ -420,7 +420,7 @@ def test_non_version_control_file(test_client):
 
 def test_move_page(test_client):
     '''test that moving a file works'''
-    p = test_client.application._otterwiki_tempdir
+    p = test_client.application._eggwiki_tempdir
     _inner_folder = "a_folder/another_folder/"
     _file_name = "wiki_page"
     _new_file_name = "wiki_page_new"
@@ -454,7 +454,7 @@ def test_move_page(test_client):
     assert f'<a href="/{new_pagename}">{_new_file_name}</a>'.lower() in rv.data.decode().lower()
 
 def test_nested_files(test_client):
-    p = test_client.application._otterwiki_tempdir
+    p = test_client.application._eggwiki_tempdir
     _inner_folder = "a_folder/another_folder/"
     _file_name = "examplepage"
     pagename = f"{_inner_folder}{_file_name}"

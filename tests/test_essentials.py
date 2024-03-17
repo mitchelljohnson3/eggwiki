@@ -21,7 +21,7 @@ def test_about(test_client):
 
 
 def test_fatal_error():
-    from otterwiki import fatal_error
+    from eggwiki import fatal_error
 
     with pytest.raises(SystemExit) as pytest_wrapped_e:
         fatal_error("test_fatal_error")

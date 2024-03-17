@@ -3,7 +3,7 @@
 # This docker-compose.yml is for building and running the development
 # version of An Otter Wiki.
 #
-# Please read the Installation guide <https://otterwiki.com/Installation>
+# Please read the Installation guide <https://eggwiki.com/Installation>
 # to get started.
 #
 version: '3'
@@ -33,7 +33,7 @@ services:
       - NOTIFY_ADMINS_ON_REGISTER=False
       - EMAIL_NEEDS_CONFIRMATION=False
       # Mail configuration
-      - MAIL_DEFAULT_SENDER=otterwiki@mailserver-dummy
+      - MAIL_DEFAULT_SENDER=eggwiki@mailserver-dummy
       - MAIL_SERVER=python-smtp-debuggingserver
       - MAIL_PORT=1025
       - MAIL_USE_TLS=False

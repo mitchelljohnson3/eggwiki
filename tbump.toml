@@ -20,7 +20,7 @@ name = 'Run make test'
 cmd = 'make test'
 
 [[file]]
-src = 'otterwiki/version.py'
+src = 'eggwiki/version.py'
 version_template = '({major}, {minor}, {patch}, "{extra}")'
 search = "version_info = {current_version}"
 

@@ -3,12 +3,12 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "otterwiki_authorsignature"
+name = "eggwiki_authorsignature"
 description = "An example plugin for An Otter Wiki that modifies the page view."
 version  = "0.1.0"
 authors = [
     { name = "Ralph Thesen", email = "mail@redimp.de" }
     ]
 
-[project.entry-points.otterwiki]
-authorsignature = "otterwiki_authorsignature"
+[project.entry-points.eggwiki]
+authorsignature = "eggwiki_authorsignature"

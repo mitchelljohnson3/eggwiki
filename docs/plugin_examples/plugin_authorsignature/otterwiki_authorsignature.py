@@ -7,7 +7,7 @@ The hook is a function that formats and appends some metadata
 to the rendered page html.
 """
 
-from otterwiki.plugins import hookimpl
+from eggwiki.plugins import hookimpl
 
 @hookimpl
 def page_view_htmlcontent_postprocess(html, page):

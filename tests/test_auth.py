@@ -4,8 +4,8 @@
 import pytest
 import os
 import re
-import otterwiki
-import otterwiki.gitstorage
+import eggwiki
+import eggwiki.gitstorage
 from flask import url_for
 from datetime import datetime
 
@@ -19,7 +19,7 @@ def test_create_app_with_user(app_with_user):
 
 
 def test_db(app_with_user):
-    from otterwiki.auth import SimpleAuth, check_password_hash, db
+    from eggwiki.auth import SimpleAuth, check_password_hash, db
 
     # check that table 'user' exists
     from sqlalchemy import inspect
@@ -40,7 +40,7 @@ def test_db(app_with_user):
 
 
 def test_generate_and_check_hash(create_app):
-    from otterwiki.auth import generate_password_hash, check_password_hash
+    from eggwiki.auth import generate_password_hash, check_password_hash
 
     for password in ["abc123.!äüöß", "aedaiPaesh8ie5Iu", "┳━┳ ヽ(ಠل͜ಠ)ﾉ"]:
         for method in ["scrypt"]:
@@ -49,7 +49,7 @@ def test_generate_and_check_hash(create_app):
 
 
 def test_check_password_hash_backport(create_app):
-    from otterwiki.auth import generate_password_hash, check_password_hash_backport
+    from eggwiki.auth import generate_password_hash, check_password_hash_backport
     # make sure check_password_hash still works sice sha256/sha512 password methods
     # are deprecated and will be removed in Werkzeug 3.0 to not break existing
     # installations
@@ -425,7 +425,7 @@ def test_permissions_per_user(app_with_permissions, test_client):
     assert "You are logged in but lack READ permissions." in rv.data.decode()
     assert "There is no place like Home." not in rv.data.decode()
     # grant the user read_access
-    from otterwiki.auth import SimpleAuth, db
+    from eggwiki.auth import SimpleAuth, db
     user = SimpleAuth.User.query.filter_by(email="another@user.org").first()
     user.allow_read = True
     db.session.add(user)
@@ -526,7 +526,7 @@ def test_lost_password_invalid_token(app_with_user, test_client):
     )
     assert "Invalid token." in rv.data.decode()
 
-    from otterwiki.helper import serialize
+    from eggwiki.helper import serialize
 
     # generate token
     token = serialize("nonexistent@email.address", salt="lost-password-email")

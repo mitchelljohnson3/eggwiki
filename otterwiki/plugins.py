@@ -9,12 +9,12 @@ import pluggy
 import re
 import urllib.parse
 
-hookspec = pluggy.HookspecMarker("otterwiki")
-hookimpl = pluggy.HookimplMarker("otterwiki")
+hookspec = pluggy.HookspecMarker("eggwiki")
+hookimpl = pluggy.HookimplMarker("eggwiki")
 
 
-class OtterWikiPluginSpec:
-    """A hook specification namespace for OtterWiki."""
+class eggwikiPluginSpec:
+    """A hook specification namespace for eggwiki."""
 
     @hookspec
     def renderer_markdown_preprocess(self, md):
@@ -86,7 +86,7 @@ def chain_hooks(hook_name, value, *args, **kwargs):
 
 # this plugin_manager is exported so the normal pluggy API can be used in
 # addition to the utility function above.
-plugin_manager = pluggy.PluginManager("otterwiki")
-plugin_manager.add_hookspecs(OtterWikiPluginSpec)
+plugin_manager = pluggy.PluginManager("eggwiki")
+plugin_manager.add_hookspecs(eggwikiPluginSpec)
 plugin_manager.register(WikiLinkPlugin())
-plugin_manager.load_setuptools_entrypoints("otterwiki")
+plugin_manager.load_setuptools_entrypoints("eggwiki")

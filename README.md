@@ -23,11 +23,11 @@ and [CodeMirror](https://codemirror.net/) as editor.
 
 ## Demo
 
-Check out the demo <https://demo.otterwiki.com>.
+Check out the demo <https://demo.eggwiki.com>.
 
 ## Installation
 
-Read the [installation guide](https://otterwiki.com/Installation) to get
+Read the [installation guide](https://eggwiki.com/Installation) to get
 started. Recommended is the installation with `docker-compose`.
 
 ### Quick start with docker-compose
@@ -35,11 +35,11 @@ started. Recommended is the installation with `docker-compose`.
 1. Copy and edit the `docker-compose.yml` below to match your preferences.
 2. Run `docker-compose up -d`
 3. Access the wiki via http://127.0.0.1:8080 if run on your machine.
-4. If the wiki shall be accessible via the internet and an domain name make sure to configure your web server accordingly. Check the [installation guide](https://otterwiki.com/Installation#reverse-proxy) for example configurations for nginx, apache and caddy.
+4. If the wiki shall be accessible via the internet and an domain name make sure to configure your web server accordingly. Check the [installation guide](https://eggwiki.com/Installation#reverse-proxy) for example configurations for nginx, apache and caddy.
 5. Register your account. The first account is an admin-account giving you access to the settings tab.
 6. Customize the settings to your liking.
 
-Proceed for the [configuration guide](https://otterwiki.com/Configuration) for
+Proceed for the [configuration guide](https://eggwiki.com/Configuration) for
 detailed information.
 
 #### docker-compose.yml
@@ -47,8 +47,8 @@ detailed information.
 ```yaml
 version: '3'
 services:
-  otterwiki:
-    image: redimp/otterwiki:2
+  eggwiki:
+    image: redimp/eggwiki:2
     restart: unless-stopped
     ports:
       - 8080:80
@@ -58,6 +58,6 @@ services:
 
 ## License
 
-An Otter Wiki is open-source software licensed under the [MIT License](https://github.com/redimp/otterwiki/blob/main/LICENSE).
+An Otter Wiki is open-source software licensed under the [MIT License](https://github.com/redimp/eggwiki/blob/main/LICENSE).
 
 [modeline]: # ( vim: set fenc=utf-8 spell spl=en sts=4 et tw=72: )

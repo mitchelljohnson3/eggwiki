@@ -5,7 +5,7 @@ import pytest
 import tempfile
 from pprint import pprint
 
-from otterwiki import gitstorage
+from eggwiki import gitstorage
 
 
 @pytest.fixture

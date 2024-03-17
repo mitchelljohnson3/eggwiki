@@ -11,13 +11,13 @@ from flask import (
     redirect,
     url_for,
 )
-from otterwiki.server import app, storage, githttpserver
-from otterwiki.wiki import Page, PageIndex, Changelog, Search, render, AutoRoute
-import otterwiki.auth
-import otterwiki.preferences
-from otterwiki.helper import toast, health_check
-from otterwiki.version import __version__
-from otterwiki.util import sanitize_pagename
+from eggwiki.server import app, storage, githttpserver
+from eggwiki.wiki import Page, PageIndex, Changelog, Search, render, AutoRoute
+import eggwiki.auth
+import eggwiki.preferences
+from eggwiki.helper import toast, health_check
+from eggwiki.version import __version__
+from eggwiki.util import sanitize_pagename
 
 from flask_login import login_required
 
@@ -117,25 +117,25 @@ def help(topic=None):
 @login_required
 def settings():
     if request.method == "GET":
-        return otterwiki.auth.settings_form()
+        return eggwiki.auth.settings_form()
     else:
-        return otterwiki.auth.handle_settings(request.form)
+        return eggwiki.auth.handle_settings(request.form)
 
 @app.route("/-/admin", methods=["POST", "GET"]) # pyright: ignore -- false positive
 @login_required
 def admin():
     if request.method == "GET":
-        return otterwiki.preferences.admin_form()
+        return eggwiki.preferences.admin_form()
     else:
-        return otterwiki.preferences.handle_preferences(request.form)
+        return eggwiki.preferences.handle_preferences(request.form)
 
 @app.route("/-/user/<string:uid>", methods=["POST","GET"])
 @login_required
 def user(uid=None):
     if request.method == "GET":
-        return otterwiki.preferences.user_edit_form(uid)
+        return eggwiki.preferences.user_edit_form(uid)
     else:
-        return otterwiki.preferences.handle_user_edit(uid,request.form)
+        return eggwiki.preferences.handle_user_edit(uid,request.form)
 
 #
 # index, changelog
@@ -180,9 +180,9 @@ def create():
 def login():
     email = request.cookies.get("email")
     if request.method == "GET":
-        return otterwiki.auth.login_form(email)
+        return eggwiki.auth.login_form(email)
     else:
-        return otterwiki.auth.handle_login(
+        return eggwiki.auth.handle_login(
             email=request.form.get("email"),
             password=request.form.get("password"),
             remember=request.form.get("remember"),
@@ -192,9 +192,9 @@ def login():
 @app.route("/-/register", methods=["POST", "GET"])
 def register():
     if request.method == "GET":
-        return otterwiki.auth.register_form()
+        return eggwiki.auth.register_form()
     else:
-        return otterwiki.auth.handle_register(
+        return eggwiki.auth.handle_register(
             email=request.form.get("email"),
             name=request.form.get("name"),
             password1=request.form.get("password1"),
@@ -205,31 +205,31 @@ def register():
 @app.route("/-/logout")
 @login_required
 def logout():
-    return otterwiki.auth.handle_logout()
+    return eggwiki.auth.handle_logout()
 
 
 @app.route("/-/lost_password", methods=["POST", "GET"])
 def lost_password():
     if request.method == "GET":
-        return otterwiki.auth.lost_password_form()
+        return eggwiki.auth.lost_password_form()
     else:
-        return otterwiki.auth.handle_recover_password(
+        return eggwiki.auth.handle_recover_password(
             email=request.form.get("email"),
         )
 
 
 @app.route("/-/confirm_email/<string:token>", methods=["POST", "GET"])
 def confirm_email(token):
-    return otterwiki.auth.handle_confirmation(token)
+    return eggwiki.auth.handle_confirmation(token)
 
 
 @app.route("/-/recover_password/<string:token>", methods=["GET"])
 def recover_password(token):
-    return otterwiki.auth.handle_recover_password_token(token=token)
+    return eggwiki.auth.handle_recover_password_token(token=token)
 
 @app.route("/-/request_confirmation_link/<string:email>", methods=["GET"])
 def request_confirmation_link(email):
-    return otterwiki.auth.handle_request_confirmation(email=email)
+    return eggwiki.auth.handle_request_confirmation(email=email)
 
 #
 # page views
@@ -265,7 +265,7 @@ def rename(path):
         return p.handle_rename(
             new_pagename=request.form.get("new_pagename"),
             message=request.form.get("message"),
-            author=otterwiki.auth.get_author(),
+            author=eggwiki.auth.get_author(),
         )
     return p.rename_form()
 
@@ -277,7 +277,7 @@ def delete(path):
     if request.method == "POST":
         return p.delete(
             message=request.form.get("message"),
-            author=otterwiki.auth.get_author(),
+            author=eggwiki.auth.get_author(),
         )
     return p.delete_form()
 
@@ -312,7 +312,7 @@ def save(path):
     # create page object
     p = Page(path)
     # and save
-    return p.save(content=content, commit=commit, author=otterwiki.auth.get_author())
+    return p.save(content=content, commit=commit, author=eggwiki.auth.get_author())
 
 
 @app.route("/<path:path>/preview", methods=["POST", "GET"])
@@ -346,7 +346,7 @@ def revert(revision):
         return chlg.revert(
             revision=revision,
             message=message,
-            author=otterwiki.auth.get_author(),
+            author=eggwiki.auth.get_author(),
         )
     return chlg.revert_form(revision=revision, message=message)
 
@@ -380,7 +380,7 @@ def edit_attachment(pagepath, filename):
         new_filename=request.form.get("new_filename"),
         message=request.form.get("message"),
         delete=request.form.get("delete"),
-        author=otterwiki.auth.get_author(),
+        author=eggwiki.auth.get_author(),
     )
 
 
@@ -392,7 +392,7 @@ def attachments(pagepath):
             files=request.files.getlist("file"),
             message=request.form.get("message"),
             filename=request.form.get("filename"),
-            author=otterwiki.auth.get_author(),
+            author=eggwiki.auth.get_author(),
         )
     return p.render_attachments()
 
@@ -404,7 +404,7 @@ def inline_attachment(pagepath):
         files=request.files.getlist("file"),
         message="Uploaded via inline attachment",
         filename=None,
-        author=otterwiki.auth.get_author(),
+        author=eggwiki.auth.get_author(),
         inline=True,
     )
 

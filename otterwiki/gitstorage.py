@@ -6,7 +6,7 @@ import re
 import git
 import git.exc
 from datetime import datetime
-from otterwiki.util import split_path, ttl_lru_cache
+from eggwiki.util import split_path, ttl_lru_cache
 import pathlib
 import os
 

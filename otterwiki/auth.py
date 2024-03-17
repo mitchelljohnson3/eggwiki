@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from otterwiki.util import is_valid_email
+from eggwiki.util import is_valid_email
 from werkzeug.security import generate_password_hash, check_password_hash
 from urllib.parse import urlsplit
 from flask import (
@@ -17,9 +17,9 @@ from flask_login import (
     logout_user,
     current_user,
 )
-from otterwiki.server import app, db
-from otterwiki.helper import toast, send_mail, serialize, deserialize, SerializeError
-from otterwiki.util import random_password, empty
+from eggwiki.server import app, db
+from eggwiki.helper import toast, send_mail, serialize, deserialize, SerializeError
+from eggwiki.util import random_password, empty
 from datetime import datetime
 import hmac
 
