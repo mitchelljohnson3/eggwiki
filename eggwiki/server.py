@@ -48,7 +48,7 @@ app.config.update(
     COMMIT_MESSAGE="REQUIRED", # OPTIONAL
     GIT_WEB_SERVER=False,
 )
-app.config.from_envvar("eggwiki_SETTINGS", silent=True)
+app.config.from_envvar("EGGWIKI_SETTINGS", silent=True)
 
 app.logger.setLevel(app.config["LOG_LEVEL"])
 
