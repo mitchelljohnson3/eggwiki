@@ -14,8 +14,8 @@
 		},
 		{
 			"src": "img/otter_192x192.png",
-			"type": "image/x-icon",
-			"sizes": "32x32"
+			"type": "image/png",
+			"sizes": "192x192"
 		}
 	],
 	"start_url": "/",
