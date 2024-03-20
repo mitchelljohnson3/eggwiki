@@ -42,6 +42,8 @@
     <link href="{{ url_for("static", filename="css/pygments.css") | debug_unixtime }}" rel="stylesheet" />
     <!-- Roboto font (Used when Apple system fonts are not available) -->
     <link href="{{ url_for("static", filename="css/roboto.css") | debug_unixtime }}" rel="stylesheet"/>
+    <!-- Manifest.json file for PWA functionality -->
+    <link href="{{ url_for("static", filename="manifest.json") | debug_unixtime }}" rel="manifest" />
     <!-- Documentation styles -->
 {%- block head %}
 {% endblock -%}

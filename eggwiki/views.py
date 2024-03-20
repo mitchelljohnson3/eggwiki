@@ -44,7 +44,7 @@ Allow: /""",
 def favicon():
     return send_from_directory(
         os.path.join(app.root_path, "static/img"),
-        "Egg-favicon2.ico",
+        "otter-favicon2.ico",
         mimetype="image/vnd.microsoft.icon",
     )
 
