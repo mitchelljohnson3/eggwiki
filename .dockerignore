@@ -1,6 +1,0 @@
-.tox
-.git
-.pytest_cache
-build
-app-data*
-venv*

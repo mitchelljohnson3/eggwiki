@@ -1,6 +1,0 @@
-[run]
-omit =
-    eggwiki/profiler.py
-
-[html]
-directory = coverage_html
