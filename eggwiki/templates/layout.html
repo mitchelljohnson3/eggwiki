@@ -19,7 +19,7 @@
 {%- if config.SITE_LOGO %}
   <meta property="og:image" content="{{ config.SITE_LOGO }}" />
 {%- else %}
-  <meta property="og:image" content="{{ url_for("static", filename="img/Egghead.png", _external=True) }}" />
+  <meta property="og:image" content="{{ url_for("static", filename="img/otterhead.png", _external=True) }}" />
 {%- endif %}
 {# meta preview block ]] #}
   <!-- Favicon and title -->
@@ -81,7 +81,7 @@
 {%- if config.SITE_LOGO %}
                 <img src="{{ config.SITE_LOGO }}" alt="" id="site_logo"/>
 {%- else %}
-                <img src="{{ url_for("static", filename="img/Egghead.png") }}" alt="" id="site_logo"/>
+                <img src="{{ url_for("static", filename="img/otterhead.png") }}" alt="" id="site_logo"/>
 {%- endif %}
                 <span class="d-none d-sm-flex text-truncate">{{ config.SITE_NAME }}</span>
             </a>
