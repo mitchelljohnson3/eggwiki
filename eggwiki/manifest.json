@@ -1,0 +1,25 @@
+{
+	"short_name": "An Egg Wiki",
+	"name": "EggWiki",
+	"icons": [
+		{
+			"src": "static/img/otter-favicon.ico",
+			"type": "image/x-icon",
+			"sizes": "32x32"
+		},
+		{
+			"src": "static/img/otter_512x512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		},
+		{
+			"src": "static/img/otter_192x192.png",
+			"type": "image/x-icon",
+			"sizes": "32x32"
+		}
+	],
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#000000",
+	"theme_color": "#000000"
+}
