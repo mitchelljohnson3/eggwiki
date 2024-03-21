@@ -1,6 +1,17 @@
 /* vim: set et sts=4 ts=4 sw=4 ai: */
 
 var eggwiki_editor = {
+	/* toggle Vim key bindings */
+	toggleVim: function () {
+		var isVimMode = cm_editor.getOption('keyMap') === 'vim'
+		if (isVimMode) {
+			// Switch to default keyMap
+			cm_editor.setOption('keyMap', 'default')
+		} else {
+			// Switch to Vim keyMap
+			cm_editor.setOption('keyMap', 'vim')
+		}
+	},
 	/* simple functions */
 	undo: function () {
 		if (!cm_editor) {
