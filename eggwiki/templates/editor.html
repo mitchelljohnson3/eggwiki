@@ -251,7 +251,6 @@
             const key = e.key;
             if (movementKeys[key] && !activeKey) {
                 activeKey = key;
-                triggerVimMovement(key);
                 // Clear previous timeout to handle rapid key presses
                 if (initialDelayTimeout) clearTimeout(initialDelayTimeout);
                 // Start the repetition with an initial delay
