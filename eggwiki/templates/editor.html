@@ -227,6 +227,59 @@
 <script src="{{ url_for("static", filename="keymap/vim.js") | debug_unixtime }}" type="text/javascript" charset="utf-8"></script>
 
 <script type="text/javascript">
+    function setupContinuousVimMovement(cm) {
+    const movementKeys = { h: true, j: true, k: true, l: true, b: true, w: true };
+    let activeKey = null;
+    let repeatInterval = null;
+    let initialDelayTimeout = null; // Initial delay before repeating
+    const initialDelay = 200; // Delay in milliseconds before starting repetition
+    const repeatRate = 100; // Rate in milliseconds for repeating movement
+
+    const triggerVimMovement = (key) => {
+        if (!cm.state.vim || cm.state.vim.insertMode || cm.state.vim.visualMode) return;
+        CodeMirror.Vim.handleKey(cm, key);
+    };
+
+    const startRepeatingMovement = (key) => {
+        if (repeatInterval) clearInterval(repeatInterval);
+        repeatInterval = setInterval(() => triggerVimMovement(key), repeatRate);
+    };
+
+    const onKeyDown = (e) => {
+        const key = e.key;
+        if (movementKeys[key] && !activeKey) {
+            activeKey = key;
+            triggerVimMovement(key);
+            // Clear previous timeout to handle rapid key presses
+            if (initialDelayTimeout) clearTimeout(initialDelayTimeout);
+            // Start the repetition with an initial delay
+            initialDelayTimeout = setTimeout(() => startRepeatingMovement(key), initialDelay);
+        }
+    };
+
+    const onKeyUp = (e) => {
+        if (e.key === activeKey) {
+            activeKey = null;
+            clearInterval(repeatInterval);
+            clearTimeout(initialDelayTimeout); // Clear the initial delay timeout
+        }
+    };
+
+    // Add event listeners to the CodeMirror wrapper element
+    const wrapperElement = cm.getWrapperElement();
+    wrapperElement.addEventListener('keydown', onKeyDown);
+    wrapperElement.addEventListener('keyup', onKeyUp);
+
+    // Ensure to remove event listeners if needed (e.g., when disposing of the editor)
+    cm.on('destroy', () => {
+        wrapperElement.removeEventListener('keydown', onKeyDown);
+        wrapperElement.removeEventListener('keyup', onKeyUp);
+    });
+}
+
+</script>
+
+<script type="text/javascript">
     var cm_editor = CodeMirror.fromTextArea(document.getElementById("content_editor"), {
         mode: 'markdown',
         keyMap: 'vim',
@@ -249,6 +302,7 @@
             "Shift-Tab": "indentLess",
         },
       });
+    setupContinuousVimMovement(cm_editor)
     cm_editor.setCursor({ line: {{cursor_line or 0}}, ch: {{cursor_ch or 0}} } );
     var bottom_panel = document.getElementById('editor-bottom-panel');
     bottom_panel.style.display = 'block';

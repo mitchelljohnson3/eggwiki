@@ -7194,6 +7194,7 @@
 				handleExternalSelection(cm, vim)
 			}
 		}
+
 		function handleExternalSelection(cm, vim) {
 			var anchor = cm.getCursor('anchor')
 			var head = cm.getCursor('head')
@@ -7434,6 +7435,46 @@
 		resetVimGlobalState()
 
 		return vimApi
+	}
+
+	function setupContinuousVimMovement(cm) {
+		const movementKeys = { h: true, j: true, k: true, l: true }
+		let activeKey = null
+		let repeatInterval = null
+
+		const triggerVimMovement = (key) => {
+			if (!cm.state.vim || cm.state.vim.insertMode || cm.state.vim.visualMode)
+				return
+			CodeMirror.Vim.handleKey(cm, key)
+		}
+
+		const onKeyDown = (e) => {
+			const key = e.key
+			if (movementKeys[key] && !activeKey) {
+				activeKey = key
+				triggerVimMovement(key)
+				if (repeatInterval) clearInterval(repeatInterval)
+				repeatInterval = setInterval(() => triggerVimMovement(key), 100) // Adjust interval for faster/slower repetition
+			}
+		}
+
+		const onKeyUp = (e) => {
+			if (e.key === activeKey) {
+				activeKey = null
+				clearInterval(repeatInterval)
+			}
+		}
+
+		// Add event listeners to the CodeMirror wrapper element
+		const wrapperElement = cm.getWrapperElement()
+		wrapperElement.addEventListener('keydown', onKeyDown)
+		wrapperElement.addEventListener('keyup', onKeyUp)
+
+		// Ensure to remove event listeners if needed (e.g., when disposing of the editor)
+		cm.on('destroy', () => {
+			wrapperElement.removeEventListener('keydown', onKeyDown)
+			wrapperElement.removeEventListener('keyup', onKeyUp)
+		})
 	}
 
 	function initVim(CodeMirror5) {
