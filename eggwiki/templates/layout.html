@@ -19,14 +19,14 @@
 {%- if config.SITE_LOGO %}
   <meta property="og:image" content="{{ config.SITE_LOGO }}" />
 {%- else %}
-  <meta property="og:image" content="{{ url_for("static", filename="img/otterhead.png", _external=True) }}" />
+  <meta property="og:image" content="{{ url_for("static", filename="img/egghead_512x512.png", _external=True) }}" />
 {%- endif %}
 {# meta preview block ]] #}
   <!-- Favicon and title -->
 {%- if config.SITE_ICON %}
     <link rel="icon" href="{{ config.SITE_ICON }}">
 {%- else %}
-    <link rel="icon" href="{{ url_for("static", filename="img/Egg-favicon2.png") }}">
+    <link rel="icon" href="{{ url_for("static", filename="img/egghead_512x512.png") }}">
 {%- endif %}
 {% block title %}
     <title>{%if title%}{{title}} &ndash; {%endif%}{%if config.SITE_NAME %}{{config.SITE_NAME}}{%else%}An Egg Wiki{%endif%}</title>
@@ -83,7 +83,7 @@
 {%- if config.SITE_LOGO %}
                 <img src="{{ config.SITE_LOGO }}" alt="" id="site_logo"/>
 {%- else %}
-                <img src="{{ url_for("static", filename="img/otterhead.png") }}" alt="" id="site_logo"/>
+                <img src="{{ url_for("static", filename="img/egghead_512x512.png") }}" alt="" id="site_logo"/>
 {%- endif %}
                 <span class="d-none d-sm-flex text-truncate">{{ config.SITE_NAME }}</span>
             </a>
@@ -168,8 +168,7 @@
 
             <div class="sidebar-Egg" >
                 <a href=" {{ url_for("about") }}" class="sidebar-link">
-                <img class="sidebar-logo" src="{{ url_for("static", filename="img/otter.png") | debug_unixtime }}" alt=""/><br/>
-                An Egg Wiki
+                <img class="sidebar-logo" src="{{ url_for("static", filename="img/eggfull_small.png") | debug_unixtime }}" alt=""/><br/>
                 </a>
             </div>
         </div>

@@ -3,23 +3,23 @@
 	"name": "EggWiki",
 	"icons": [
 		{
-			"src": "img/otter-favicon.ico",
+			"src": "img/egghead_white-background_favicon_32x32.ico",
 			"type": "image/x-icon",
 			"sizes": "32x32"
 		},
 		{
-			"src": "img/otter_512x512.png",
+			"src": "img/egghead_white-background_512x512.png",
 			"type": "image/png",
 			"sizes": "512x512"
 		},
 		{
-			"src": "img/otter_192x192.png",
+			"src": "img/egghead_white-background_192x192.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}
 	],
 	"start_url": "/",
 	"display": "standalone",
-	"background_color": "#000000",
-	"theme_color": "#000000"
+	"background_color": "#FFFFFF",
+	"theme_color": "#FFFFFF"
 }
